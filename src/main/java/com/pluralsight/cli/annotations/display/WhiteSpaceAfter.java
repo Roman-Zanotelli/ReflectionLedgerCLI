@@ -1,4 +1,4 @@
-package com.pluralsight.cli.annotations.display.option;
+package com.pluralsight.cli.annotations.display;
 
 
 import java.lang.annotation.ElementType;
@@ -8,6 +8,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface WhiteSpaceBeforeResult {
-    int value();
+public @interface WhiteSpaceAfter {
+    int value() default 1;
 }

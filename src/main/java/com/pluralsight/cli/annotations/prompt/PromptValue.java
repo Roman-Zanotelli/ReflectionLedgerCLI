@@ -7,6 +7,8 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
-public @interface NullablePromptFloat {
-    String value();
+public @interface PromptValue {
+    String prompt() default "Enter Value: ";
+    PromptType type() default PromptType.STRING;
+    boolean nullable() default true;
 }

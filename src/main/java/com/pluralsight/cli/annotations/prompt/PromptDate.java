@@ -7,6 +7,10 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
-public @interface PromptString {
-    String value();
+public @interface PromptDate {
+    String prompt() default "Enter Date: ";
+    String format() default "MM/dd/yyyy";
+    boolean nullable() default true;
+    boolean askAltFormat() default false;
+
 }

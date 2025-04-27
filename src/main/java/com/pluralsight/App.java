@@ -3,9 +3,12 @@ package com.pluralsight;
 import com.pluralsight.cli.MenuRegister;
 import com.pluralsight.cli.UserScanner;
 import com.pluralsight.cli.annotations.*;
+import com.pluralsight.cli.annotations.display.option.NextMenuWhiteSpace;
+import com.pluralsight.cli.annotations.display.WhiteSpaceAfter;
+import com.pluralsight.cli.annotations.display.WhiteSpaceBefore;
 import com.pluralsight.cli.annotations.display.option.*;
-import com.pluralsight.cli.annotations.prompt.PromptFloat;
-import com.pluralsight.cli.annotations.prompt.PromptString;
+import com.pluralsight.cli.annotations.prompt.PromptDate;
+import com.pluralsight.cli.annotations.prompt.PromptValue;
 import com.pluralsight.cli.menus.*;
 import com.pluralsight.util.*;
 
@@ -15,6 +18,8 @@ import java.lang.reflect.Parameter;
 import java.util.*;
 
 public class App {
+
+    @SuppressWarnings("InfiniteLoopStatement")
     public static void main(String[] args) {
         //TODO: Possibly Add a background timer to detect if the user has been inside a single loop for longer than expected
         //TODO: Possibly Add an encrypted file with login system
@@ -29,9 +34,11 @@ public class App {
 
         }));
 
-        //Registered Menu Classes
-        Class<?>[] _registeredMenus = {HomeMenu.class, LedgerMenu.class, ReportsMenu.class};
-        Arrays.stream(_registeredMenus).forEach(MenuRegister::register);
+        //Register Menu Classes
+        {
+            Class<?>[] _registeredMenus = {HomeMenu.class, LedgerMenu.class, ReportsMenu.class};
+            Arrays.stream(_registeredMenus).forEach(MenuRegister::register);
+        }
 
         //initial cli_state
         String cliState = "home_menu";
@@ -78,16 +85,13 @@ public class App {
                     else res = selection.invoke(null, Arrays.stream(params).map(parameter -> {
                         //! IF A FUNCTION DOESN'T PROPERLY ANNOTATE IT WILL PROBABLY CRASH THE PROGRAM!
 
-                        //Todo: consider using a value of the PromptType instead of different annotationsTypes
-                        //Todo: letting getPromptAnnotation hande the rest
+                        //Prompts for value as Annotated
+                        PromptValue promptValue = parameter.getAnnotation(PromptValue.class);
+                        if(promptValue != null) return UserScanner.getPrompt(promptValue); else{
+                            PromptDate promptDate = parameter.getAnnotation(PromptDate.class);
+                            if(promptDate != null) return UserScanner.getDate(promptDate);
+                        }
 
-                        //Logic for PromptString
-                        PromptString stringPrompt = parameter.getAnnotation(PromptString.class);
-                        if(stringPrompt != null) return UserScanner.getPromptAnnotation(stringPrompt);
-
-                        //Logic for PromptFloat
-                        PromptFloat floatPrompt = parameter.getAnnotation(PromptFloat.class);
-                        if(floatPrompt != null) return UserScanner.getPromptAnnotation(floatPrompt);
 
                         return null; //return null otherwise
                     }).toArray()); //collects then invokes the method
@@ -96,8 +100,8 @@ public class App {
                     if(selection.isAnnotationPresent(PrintResult.class)){
 
                         //Logic for WhiteSpaceBeforeResult
-                        WhiteSpaceBeforeResult whiteSpace = selection.getAnnotation(WhiteSpaceBeforeResult.class);
-                        if (whiteSpace != null)System.out.print("\n".repeat(whiteSpace.value()));
+                        WhiteSpaceBefore whiteSpaceBefore = selection.getAnnotation(WhiteSpaceBefore.class);
+                        if (whiteSpaceBefore != null)System.out.print("\n".repeat(whiteSpaceBefore.value()));
 
                         //Logic for ResultHeader
                         ResultHeader resultHeader = selection.getAnnotation(ResultHeader.class);
@@ -111,33 +115,50 @@ public class App {
                         System.out.printf((format != null ? format : "%s") + "\n", res);
 
                         //Logic for WhiteSpaceAfter Result
-                        WhiteSpaceAfterResult whiteSpaceResult = selection.getDeclaredAnnotation(WhiteSpaceAfterResult.class);
-                        if (whiteSpaceResult != null) System.out.print("\n".repeat(whiteSpaceResult.value()));
+                        WhiteSpaceAfter whiteSpaceAfter = selection.getDeclaredAnnotation(WhiteSpaceAfter.class);
+                        if (whiteSpaceAfter != null) System.out.print("\n".repeat(whiteSpaceAfter.value()));
 
                     }
                 }
 
+                //Grab the whiteSpaceAfterMenu before potential context switch
+                WhiteSpaceAfter whiteSpaceAfterMenu = MenuRegister.getClass(cliState).getAnnotation(WhiteSpaceAfter.class);
 
-                //Logic for NextMenu
+                //Logic for NextMenu (context switch)
                 NextMenu next = selection.getDeclaredAnnotation(NextMenu.class);
-                if(next != null) cliState = next.value();
+                if(next != null) {
+                    NextMenuWhiteSpace nextWhiteSpace = selection.getDeclaredAnnotation(NextMenuWhiteSpace.class);
+                    if(nextWhiteSpace != null)System.out.print("\n".repeat(nextWhiteSpace.value()));
+                    cliState = next.value();
+                }
 
+                //Grab the whiteSpaceBefore for the nextMenu (Allows Initial menu to ignore this on startup)
+                WhiteSpaceBefore whiteSpaceBeforeNextMenu = MenuRegister.getClass(cliState).getAnnotation(WhiteSpaceBefore.class);
 
+                //Sum the whiteSpaceAfter and whiteSpaceBefore for the current and next menu and print it out
+                System.out.print("\n".repeat((whiteSpaceAfterMenu != null ? whiteSpaceAfterMenu.value() : 0) + (whiteSpaceBeforeNextMenu != null ? whiteSpaceBeforeNextMenu.value() : 0)));
 
-            //While loop is not supposed to terminate this way
-            //Should always use HomeMenu.exit()
-            }while(true);
+            }while(true); //While loop is not supposed to terminate this way; Instead always use HomeMenu.exit()
 
 
         }catch(IllegalAccessException | InvocationTargetException e){
+
             //Annotations were used wrong/missing
             System.out.println(e.getLocalizedMessage());
+
         }catch(IllegalStateException e){
+
             //Scanner was closed
             System.out.println(e.getLocalizedMessage());
+
         }
 
         System.exit(1);
+    }//*** END OF MAIN
+
+
+    private void playground(Class type){
+
     }
 
 }

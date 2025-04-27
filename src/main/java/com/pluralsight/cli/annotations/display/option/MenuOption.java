@@ -11,5 +11,5 @@ public @interface MenuOption {
     int order();
     String key(); //key to select this option
     String description(); //description beside this option
-    String formatter();
+    String formatter() default "";
 }

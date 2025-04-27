@@ -1,9 +1,8 @@
 package com.pluralsight.cli;
 
-import com.pluralsight.cli.annotations.display.menu.MenuSelector;
 import com.pluralsight.cli.annotations.prompt.*;
 
-import java.lang.annotation.Annotation;
+import java.text.DateFormat;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -27,68 +26,45 @@ public final class UserScanner {
         return res;
     }
 
-    public static Object getPromptAnnotation(Annotation annotation){
-        //Res
-        Object res = null;
-
-        //Logic for PromptString
-        //Java 17 doesn't support the switch case I wanted to use, it's available in later versions
-        if (annotation instanceof PromptString){
-            do {
-
-                //Prompt
-                System.out.print(((PromptString) annotation).value());
-                //Get value
-                res = scanner.nextLine();
-
-                //Check the final value
-            } while (res == null || ((String) res).isBlank());
-        }
-
-        //Logic for prompt float
-        else if(annotation instanceof PromptFloat){
-            do{
-
-                //Prompt
-                System.out.print(((PromptFloat) annotation).value());
-
-                //Check valid Float
-            } while (checkValueAndClear(scanner.hasNextFloat()));
-
-            //Get value
-            res = scanner.nextFloat();
-            //Clear for next scan
-            scanner.nextLine();
-        }
-
-        //Logic for NullablePromptString
-        else if(annotation instanceof NullablePromptString){
-            res = scanner.nextLine().trim();
-        }
-
-        //Logic for NullablePromptFloat
-        else if(annotation instanceof NullablePromptFloat){
-
-            System.out.print(((NullablePromptFloat) annotation).value());
-            //TODO: add a check for if there ARE values but they ARENT floats
-            //TODO: accept completely empty inputs (reprompt in the case of spaces)
-            //TODO: Return proper float if possible
-            //Clear for next scan
-            scanner.nextLine();
-        }
-
-        //Logic for NullablePromptDate
-        else if (annotation instanceof NullablePromptDate) {
-            System.out.print(((NullablePromptDate) annotation).message());
-            //TODO: add a check for if there ARE values but they ARENT dates
-            //TODO: add parser logic
-            //TODO: accept completely empty inputs (reprompt in the case of spaces)
-            //TODO: Return proper date if possible
-        }
-
-        //Return Final Res
-        return res;
+    public static Object getDate(PromptDate promptDate){
+        return null;
     }
+
+    public static Object getPrompt(PromptValue promptValue){
+        return switch (promptValue.type()){
+
+            case FLOAT -> {
+                while(true){
+                    System.out.print(promptValue.prompt());
+                    String in = scanner.nextLine().trim();
+                    if(in.isBlank() && promptValue.nullable()) yield null;
+                    try {
+                        yield Float.parseFloat(in);
+                    }catch (Exception ignored){}
+                }
+            }
+            case STRING -> {
+                while(true){
+                    System.out.print(promptValue.prompt());
+                    String in = scanner.nextLine().trim();
+                    if(!in.isBlank()) yield in;
+                    if(promptValue.nullable()) yield null;
+                }
+            }
+            case INT -> {
+                while(true){
+                    System.out.print(promptValue.prompt());
+                    String in = scanner.nextLine().trim();
+                    if(in.isBlank() && promptValue.nullable()) yield null;
+                    try {
+                        yield Integer.parseInt(in);
+                    }catch (Exception ignored){}
+                }
+            }
+            default -> null;
+        };
+    }
+
 
     //Convenience method for do-while loop
     private static boolean checkValueAndClear(boolean bool){
@@ -101,7 +77,6 @@ public final class UserScanner {
         //Continue loop
         return true;
     }
-
     //Cleanup
     public static void close(){
         scanner.close();
