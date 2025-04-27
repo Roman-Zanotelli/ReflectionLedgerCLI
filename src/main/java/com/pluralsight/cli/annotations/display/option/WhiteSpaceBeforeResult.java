@@ -1,4 +1,5 @@
-package com.pluralsight.cli.annotation.display;
+package com.pluralsight.cli.annotations.display.option;
+
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,7 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE, ElementType.FIELD})
-public @interface StringFormatter {
-    String value();
+@Target(ElementType.METHOD)
+public @interface WhiteSpaceBeforeResult {
+    int value();
 }

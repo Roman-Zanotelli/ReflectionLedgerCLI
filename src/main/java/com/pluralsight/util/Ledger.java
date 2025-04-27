@@ -15,4 +15,5 @@ public class Ledger {
     public String toString() {
         return "TODO";
     }
+    public static void close(){}
 }

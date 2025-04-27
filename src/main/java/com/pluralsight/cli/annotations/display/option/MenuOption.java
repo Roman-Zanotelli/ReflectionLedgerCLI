@@ -1,4 +1,4 @@
-package com.pluralsight.cli.annotation.display.option;
+package com.pluralsight.cli.annotations.display.option;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

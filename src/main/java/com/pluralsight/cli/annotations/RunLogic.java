@@ -1,4 +1,4 @@
-package com.pluralsight.cli.annotation;
+package com.pluralsight.cli.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,6 +7,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface NextMenu {
-    String value();
+public @interface RunLogic {
+    //Signals function should run when selection
 }

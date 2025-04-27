@@ -1,4 +1,4 @@
-package com.pluralsight.cli.annotation;
+package com.pluralsight.cli.annotations;
 import java.lang.annotation.*;
 
 @Retention(RetentionPolicy.RUNTIME)

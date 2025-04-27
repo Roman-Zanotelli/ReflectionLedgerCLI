@@ -1,4 +1,4 @@
-package com.pluralsight.cli.annotation.prompt;
+package com.pluralsight.cli.annotations.prompt;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,6 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
-public @interface PromptString {
-    String value();
+public @interface NullablePromptDate {
+    String message();
+    String format();
 }

@@ -1,7 +1,7 @@
-package com.pluralsight.util;
+package com.pluralsight.cli;
 
-import com.pluralsight.cli.annotation.display.menu.MenuSelector;
-import com.pluralsight.cli.annotation.prompt.*;
+import com.pluralsight.cli.annotations.display.menu.MenuSelector;
+import com.pluralsight.cli.annotations.prompt.*;
 
 import java.lang.annotation.Annotation;
 import java.util.Scanner;
@@ -10,12 +10,13 @@ import java.util.Set;
 public final class UserScanner {
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static String getWithin(Set<String> options, MenuSelector selector){
+    public static String getWithin(Set<String> options, String selector){
         //Final Res
         String res;
         do {
+
             //Gets the menu's MenuSelector using it if available
-            System.out.printf("\n%s ", selector != null ? selector.value() : "Enter Selection >");
+            System.out.printf("\n%s ", selector != null ? selector : "Enter Selection >");
             //Todo: add a better way besides just uppercase
             res = scanner.nextLine().trim().toUpperCase();
 
@@ -31,9 +32,10 @@ public final class UserScanner {
         Object res = null;
 
         //Logic for PromptString
-        //Java 17 doesn't support the switch case I wanted to use, but it is apparently available in later versions
+        //Java 17 doesn't support the switch case I wanted to use, it's available in later versions
         if (annotation instanceof PromptString){
             do {
+
                 //Prompt
                 System.out.print(((PromptString) annotation).value());
                 //Get value
@@ -46,6 +48,7 @@ public final class UserScanner {
         //Logic for prompt float
         else if(annotation instanceof PromptFloat){
             do{
+
                 //Prompt
                 System.out.print(((PromptFloat) annotation).value());
 
@@ -65,13 +68,18 @@ public final class UserScanner {
 
         //Logic for NullablePromptFloat
         else if(annotation instanceof NullablePromptFloat){
+
+            System.out.print(((NullablePromptFloat) annotation).value());
             //TODO: add a check for if there ARE values but they ARENT floats
             //TODO: accept completely empty inputs (reprompt in the case of spaces)
             //TODO: Return proper float if possible
+            //Clear for next scan
+            scanner.nextLine();
         }
 
         //Logic for NullablePromptDate
         else if (annotation instanceof NullablePromptDate) {
+            System.out.print(((NullablePromptDate) annotation).message());
             //TODO: add a check for if there ARE values but they ARENT dates
             //TODO: add parser logic
             //TODO: accept completely empty inputs (reprompt in the case of spaces)
@@ -86,8 +94,10 @@ public final class UserScanner {
     private static boolean checkValueAndClear(boolean bool){
         //Break loop
         if(bool) return false;
+
         //Otherwise consume enter
         scanner.nextLine();
+
         //Continue loop
         return true;
     }
