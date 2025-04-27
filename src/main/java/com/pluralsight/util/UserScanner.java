@@ -1,5 +1,6 @@
 package com.pluralsight.util;
 
+import com.pluralsight.cli.annotation.display.menu.MenuSelector;
 import com.pluralsight.cli.annotation.prompt.PromptFloat;
 import com.pluralsight.cli.annotation.prompt.PromptString;
 
@@ -10,12 +11,12 @@ import java.util.Set;
 public final class UserScanner {
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static String getWithin(Set<String> options){
+    public static String getWithin(Set<String> options, MenuSelector selector){
         String res;
 
         do {
-            System.out.print("\nEnter Selection > ");
-            res = scanner.nextLine().trim();
+            System.out.printf("\n%s ", selector != null ? selector.value() : "Enter Selection >");
+            res = scanner.nextLine().trim().toUpperCase();
         }while (!options.contains(res)); //check if the res is within keyset
 
         return res;
