@@ -76,6 +76,7 @@ public class App {
                         //Logic for StringFormatter
                         //Preload Values into map for later use
                         HashMap<String, String> formatters = new HashMap<>();
+
                         //Logic for loading values
                         for (Field field : _menuClass.getDeclaredFields()){
                             //Make sure it's a string
@@ -92,7 +93,10 @@ public class App {
 
                         //Logic for MenuHeader
                         MenuHeader header = _menuClass.getAnnotation(MenuHeader.class);
+
+                        //Checks if exists
                         if(header != null) {
+                            //StringFormatter for Header Logic
                             StringFormatter formatter = _menuClass.getAnnotation(StringFormatter.class);
                             String format = formatter != null ? formatters.get(formatter.value()) : null;
                             System.out.printf( format != null ? format : "%s", header.value());
@@ -103,7 +107,7 @@ public class App {
                         //Sorts it by order
                         menuOptions.stream().sorted(Comparator.comparing(MenuOption::order))
                                 .forEach(menuOption -> {
-                                    //Gets format
+                                    //StringFormatter for Option Logic
                                     String format = formatters.get(menuOption.formatter());
                                     //Prints each option
                                     System.out.printf(format != null ? format :"\n\t%s - %s", menuOption.key(), menuOption.description());
@@ -116,8 +120,10 @@ public class App {
 
                         //Logic for RunLogic
                         if(selection.isAnnotationPresent(RunLogic.class)){
+
                             //All Parameters
                             Parameter[] params = selection.getParameters();
+
                             //Result of method
                             Object res;
 
@@ -145,12 +151,16 @@ public class App {
                                 WhiteSpaceBeforeResult whiteSpace = selection.getAnnotation(WhiteSpaceBeforeResult.class);
                                 if (whiteSpace != null)System.out.print("\n".repeat(whiteSpace.value()));
 
-                                //Logic fo ResultHeader
+                                //Logic for ResultHeader
                                 ResultHeader resultHeader = selection.getAnnotation(ResultHeader.class);
                                 if(resultHeader != null)System.out.println(resultHeader.value());
 
+                                //Logic for PrintResultFormatter
+                                PrintResultFormatter formatter = selection.getAnnotation(PrintResultFormatter.class);
+                                String format = formatter != null ? formatters.get(formatter.value()) : null;
+
                                 //Actual Logic for PrintResult
-                                System.out.println(res);
+                                System.out.printf((format != null ? format : "%s") + "\n", res);
                             }
                         }
 
