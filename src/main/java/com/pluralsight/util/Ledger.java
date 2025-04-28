@@ -1,17 +1,11 @@
 package com.pluralsight.util;
-
-import com.pluralsight.cli.annotations.RunLogic;
-import com.pluralsight.cli.annotations.display.WhiteSpaceAfter;
-import com.pluralsight.cli.annotations.display.option.MenuOption;
-import com.pluralsight.cli.annotations.display.option.PrintResult;
-import com.pluralsight.cli.annotations.prompt.PromptDate;
-import com.pluralsight.cli.annotations.prompt.PromptValue;
-
 import java.util.Date;
 
 public class Ledger {
+    static String username;
+    static String nPII;
 //USED BY START MENU
-    public static String login(String userName, String pass){
+    public static String login(String userName, String pass, Integer pin){
         //Login Logic Here
         return null;
     }

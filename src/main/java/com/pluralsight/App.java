@@ -1,18 +1,12 @@
 package com.pluralsight;
 
-import com.pluralsight.cli.MenuRegister;
-import com.pluralsight.cli.UserScanner;
 import com.pluralsight.cli.annotations.*;
-import com.pluralsight.cli.annotations.display.OnReturnNextMenu;
-import com.pluralsight.cli.annotations.display.option.NextMenuWhiteSpace;
-import com.pluralsight.cli.annotations.display.WhiteSpaceAfter;
-import com.pluralsight.cli.annotations.display.WhiteSpaceBefore;
 import com.pluralsight.cli.annotations.display.option.*;
-import com.pluralsight.cli.annotations.prompt.PressEnterToContinue;
-import com.pluralsight.cli.annotations.prompt.PromptValue;
-import com.pluralsight.cli.annotations.prompt.PromptDate;
+import com.pluralsight.cli.annotations.display.*;
+import com.pluralsight.cli.annotations.prompt.*;
 import com.pluralsight.cli.menus.*;
 import com.pluralsight.util.*;
+import com.pluralsight.cli.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
