@@ -9,6 +9,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.PARAMETER)
 public @interface PromptValue {
     String prompt() default "Enter Value: ";
-    PromptType type() default PromptType.STRING;
+    Class<?> targetClass() default String.class;
+    String parserMethod() default "";
     boolean nullable() default true;
 }

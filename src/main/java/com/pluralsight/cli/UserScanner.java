@@ -2,7 +2,7 @@ package com.pluralsight.cli;
 
 import com.pluralsight.cli.annotations.prompt.*;
 
-import java.text.DateFormat;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -30,52 +30,31 @@ public final class UserScanner {
         return null;
     }
 
-    public static Object getPrompt(PromptValue promptValue){
-        return switch (promptValue.type()){
-
-            case FLOAT -> {
-                while(true){
-                    System.out.print(promptValue.prompt());
-                    String in = scanner.nextLine().trim();
-                    if(in.isBlank() && promptValue.nullable()) yield null;
-                    try {
-                        yield Float.parseFloat(in);
-                    }catch (Exception ignored){}
-                }
+    public static Object getParsePrompt(PromptValue promptValue) throws Throwable {
+        while(true){
+            System.out.print(promptValue.prompt());
+            String in = scanner.nextLine().trim();
+            if(in.isBlank()){
+                if(promptValue.nullable()) return null;
+                continue;
             }
-            case STRING -> {
-                while(true){
-                    System.out.print(promptValue.prompt());
-                    String in = scanner.nextLine().trim();
-                    if(!in.isBlank()) yield in;
-                    if(promptValue.nullable()) yield null;
-                }
+            if (promptValue.targetClass() == String.class) return in;
+            try{
+                //This is magic (it basically calls the class you wish to parse to gets function with parserName(String parseValue) and invokes a static reference passing in user string input)
+                return promptValue.targetClass().getDeclaredMethod(promptValue.parserMethod(), String.class).invoke(null, in);
+                //
+            }catch(NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | NullPointerException | ExceptionInInitializerError e){
+                throw new RuntimeException(String.format("ParsePromptValue Invocation Failed!\nParser Class: %s\nParser Method: %s\nPlease ensure targetClass and parserName are properly set, the parser method is public, static and only accepts a string", promptValue.targetClass(), promptValue.parserMethod())).initCause(e);
+            } catch (InvocationTargetException e) {
+                //This occurs when the underlying method being invoked throws an error
+                //This error should be related to some form of parsing errors and is not indicative of a true issue
+                continue;
             }
-            case INT -> {
-                while(true){
-                    System.out.print(promptValue.prompt());
-                    String in = scanner.nextLine().trim();
-                    if(in.isBlank() && promptValue.nullable()) yield null;
-                    try {
-                        yield Integer.parseInt(in);
-                    }catch (Exception ignored){}
-                }
-            }
-            default -> null;
-        };
+        }
     }
-
-
-    //Convenience method for do-while loop
-    private static boolean checkValueAndClear(boolean bool){
-        //Break loop
-        if(bool) return false;
-
-        //Otherwise consume enter
+    public static void pressEnter(){
+        System.out.println("Press Enter to Continue");
         scanner.nextLine();
-
-        //Continue loop
-        return true;
     }
     //Cleanup
     public static void close(){
