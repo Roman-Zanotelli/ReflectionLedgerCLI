@@ -1,4 +1,4 @@
-package com.pluralsight.cli.menus;
+package com.pluralsight.menus;
 
 import com.pluralsight.cli.annotations.*;
 import com.pluralsight.cli.annotations.display.WhiteSpaceBefore;

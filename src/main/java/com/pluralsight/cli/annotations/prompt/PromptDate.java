@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.PARAMETER)
 public @interface PromptDate {
     String prompt() default "Enter Date: ";
-    String format() default "MM/dd/yyyy";
+    String format() default "yyyy-MM-dd";
     boolean nullable() default true;
     boolean askAltFormat() default false;
 

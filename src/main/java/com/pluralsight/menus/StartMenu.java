@@ -1,4 +1,4 @@
-package com.pluralsight.cli.menus;
+package com.pluralsight.menus;
 
 
 import com.pluralsight.cli.annotations.Menu;
@@ -26,9 +26,9 @@ public final class StartMenu {
 
 
     @RunLogic @WhiteSpaceBefore(2) @PrintResult @OnReturnNextMenu(menuID = "home_menu", onFailPrint = "Login Failed!")
-    @PressEnterToContinue @MenuOption(order = 1, key = "L", description = "Login")
+    //@PressEnterToContinue @MenuOption(order = 1, key = "L", description = "Login")
     public static String login(@PromptValue(prompt = "Username: ") String userName, @PromptValue(prompt = "Password: ") String pass, @PromptValue(prompt = "Pin: ", targetClass = Integer.class, parserMethod = "parseInt") Integer pin){
-        return Ledger.login(userName, pass, pin);
+        return "";//Ledger.login(userName, pass, pin);
     }
 
     @RunLogic

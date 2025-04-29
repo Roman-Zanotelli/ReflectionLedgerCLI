@@ -4,7 +4,10 @@ import com.pluralsight.cli.annotations.*;
 import com.pluralsight.cli.annotations.display.option.*;
 import com.pluralsight.cli.annotations.display.*;
 import com.pluralsight.cli.annotations.prompt.*;
-import com.pluralsight.cli.menus.*;
+import com.pluralsight.menus.HomeMenu;
+import com.pluralsight.menus.LedgerMenu;
+import com.pluralsight.menus.ReportsMenu;
+import com.pluralsight.menus.StartMenu;
 import com.pluralsight.util.*;
 import com.pluralsight.cli.*;
 
@@ -23,7 +26,6 @@ public class App {
         //Shutdown and Cleanup Handler
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             //ADD ALL SHUTDOWN LOGIC HERE
-            Ledger.close();
             UserScanner.close();
             FileManager.close();
             System.out.println("\u001B[32mB\u001B[33my\u001B[34me\u001B[35m! \u001B[31m<3\u001B[0m_\u001B[31m<3");
@@ -31,15 +33,16 @@ public class App {
 
         //Register Menu Classes
         {
-            Class<?>[] _registeredMenus = {HomeMenu.class, LedgerMenu.class, ReportsMenu.class, StartMenu.class};
+            Class<?>[] _registeredMenus = {HomeMenu.class, LedgerMenu.class, ReportsMenu.class};
             Arrays.stream(_registeredMenus).forEach(MenuRegister::register);
         }
 
         //initial cli_state
-        String cliState = "start_menu";
+        String cliState = "home_menu";
 
         try{
             do{
+                if(!MenuRegister.exists(cliState)) throw new RuntimeException("CLI Context Has Escaped Registered Bounds! Immediate Shutdown Required!");
                 //Display Header
                 {
                     String header = MenuRegister.getMenuHeader(cliState);

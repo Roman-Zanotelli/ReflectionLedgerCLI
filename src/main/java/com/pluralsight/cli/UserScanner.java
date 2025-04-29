@@ -3,6 +3,8 @@ package com.pluralsight.cli;
 import com.pluralsight.cli.annotations.prompt.*;
 
 import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -27,7 +29,15 @@ public final class UserScanner {
     }
 
     public static Object getDate(PromptDate promptDate){
-        return null;
+        while (true){
+            System.out.print(promptDate.prompt());
+            String in = scanner.nextLine();
+            try{
+                return LocalDate.parse(in, DateTimeFormatter.ofPattern(promptDate.format()));
+            }catch (Exception ignore){
+                if(in.isBlank() && promptDate.nullable()) return null;
+            }
+        }
     }
 
     public static Object getParsePrompt(PromptValue promptValue) throws Throwable {

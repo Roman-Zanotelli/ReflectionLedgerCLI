@@ -1,4 +1,4 @@
-package com.pluralsight.cli.menus;
+package com.pluralsight.menus;
 
 
 import com.pluralsight.cli.annotations.display.WhiteSpaceBefore;
@@ -53,7 +53,7 @@ public final class HomeMenu {
 
     //LOGOUT OPTION
     @RunLogic @WhiteSpaceBefore(2) @PrintResult @NextMenu("start_menu")
-    @MenuOption(order = 4, key = "<<", description = "Log Out")
+    // @MenuOption(order = 4, key = "<<", description = "Log Out")
     public static String logout(){
         return Ledger.logout();
     }
