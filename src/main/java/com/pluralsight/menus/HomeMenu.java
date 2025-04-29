@@ -53,7 +53,7 @@ public final class HomeMenu {
 
     //LOGOUT OPTION
     @RunLogic @WhiteSpaceBefore(2) @PrintResult @NextMenu("start_menu")
-    // @MenuOption(order = 4, key = "<<", description = "Log Out")
+    // REMOVED OPTION @MenuOption(order = 4, key = "<<", description = "Log Out")
     public static String logout(){
         return Ledger.logout();
     }

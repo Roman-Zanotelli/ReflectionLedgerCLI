@@ -1,0 +1,7 @@
+services:
+  reflectionledgercli:
+    container_name: ledgercli
+    image: reflectionledgercli
+    build:
+      context: .
+      dockerfile: ./Dockerfile
