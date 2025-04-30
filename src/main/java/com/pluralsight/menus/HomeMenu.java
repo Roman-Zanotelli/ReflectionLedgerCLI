@@ -16,7 +16,7 @@ import com.pluralsight.util.Ledger;
 //HOME MENU
 //..................
 @Menu("home_menu")
-@MenuHeader("Home Menu")
+@MenuHeader("Home Menu") @WhiteSpaceBefore
 public final class HomeMenu {
 
 

@@ -18,7 +18,7 @@ import java.util.Date;
 //REPORTS MENU
 //....................
 @Menu("reports_menu")
-@MenuHeader("Reports Menu")
+@MenuHeader("Reports Menu") @WhiteSpaceBefore
 public final class ReportsMenu {
 
 
@@ -75,7 +75,7 @@ public final class ReportsMenu {
 
 
     //RETURN TO LEDGER OPTION
-    @ClearScreenBefore @NextMenu("ledger_menu")
+    @NextMenu("ledger_menu")
     @MenuOption(order = 6, key = "0", description = "Return To Ledger")
     public static void backToLedger(){
         //DOES NOTHING

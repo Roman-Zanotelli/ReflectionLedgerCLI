@@ -51,7 +51,7 @@ public final class LedgerMenu {
 
 
     //RETURN HOME OPTION
-    @ClearScreenBefore @NextMenu("home_menu")
+    @NextMenu("home_menu")
     @MenuOption(order = 4, key = "H", description = "Return to Home Menu")
     public void home(){
         //DOES NOTHING
