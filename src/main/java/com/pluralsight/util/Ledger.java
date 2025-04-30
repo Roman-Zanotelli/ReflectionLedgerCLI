@@ -1,6 +1,8 @@
 package com.pluralsight.util;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
@@ -11,14 +13,17 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
 
 public class Ledger {
-    static  String path = "src/main/resources/transactions.csv";
+    static  String path = "";
+    public static void setPath(){
+        path = Files.exists(Path.of("src/main/resources")) ? "src/main/resources/transactions.csv" : "transactions.csv";
+    }
 //USED BY HOME MENU
     public static String addDeposit(Float amount, String description, String vendor){
-        if(amount == null | amount < 0 | description == null | vendor == null) return "Transaction Cancelled";
+        if(amount == null || amount < 0 || description == null || vendor == null) return "Transaction Cancelled";
         return String.format("%s", FileManager.write(new Transaction(amount, description, vendor, false), path));
     }
     public static String makePayment(Float amount, String description, String vendor) {
-        if(amount == null | description == null | vendor == null) return "Transaction Cancelled";
+        if(amount == null || description == null || vendor == null) return "Transaction Cancelled";
         return String.format("%s", FileManager.write(new Transaction(amount, description, vendor, true), path));
     }
     public static String logout(){

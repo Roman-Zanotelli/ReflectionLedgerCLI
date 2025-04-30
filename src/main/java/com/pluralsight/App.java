@@ -37,10 +37,11 @@ public class App {
             Class<?>[] _registeredMenus = {HomeMenu.class, LedgerMenu.class, ReportsMenu.class};
             Arrays.stream(_registeredMenus).forEach(MenuRegister::register);
         }
-
+        Ledger.setPath();
         //initial cli_state
         String cliState = "home_menu";
-
+        System.out.print("\033[3J\033[2J");
+        System.out.flush();
         try{
             do{
                 if(!MenuRegister.exists(cliState)) throw new RuntimeException("CLI Context Has Escaped Registered Bounds! Immediate Shutdown Required!");
@@ -67,6 +68,7 @@ public class App {
                                 MenuRegister.getMenuSelector(cliState)
                         )
                 );
+
 
 
                 //Logic for WhiteSpaceBefore Mode
@@ -130,6 +132,12 @@ public class App {
                         }
                     }
 
+                    //check for clear screen before print result
+                    if(selection.isAnnotationPresent(ClearScreenBefore.class)) {
+                        System.out.print("\033[3J\033[2J");
+                        System.out.flush();
+                    }
+
                     //Logic for PrintResult
                     if(selection.isAnnotationPresent(PrintResult.class) && res != null){
 
@@ -146,7 +154,11 @@ public class App {
 
                     }
 
-                }
+                } else if(selection.isAnnotationPresent(ClearScreenBefore.class)) { //clear screen logic for when not running function logic
+                            System.out.print("\033[3J\033[2J");
+                            System.out.flush();
+                        }
+
 
                 //Logic for WhiteSpaceAfter Selection
                 {

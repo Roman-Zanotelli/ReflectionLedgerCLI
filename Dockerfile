@@ -4,10 +4,11 @@ COPY . /app
 COPY ./build.sh /app/build.sh
 RUN yum update -y && yum install -y findutils
 RUN ./build.sh
-FROM gcr.io/distroless/java17-debian12
+FROM amazoncorretto:17
 WORKDIR /app
 COPY --from=build-env /app/build/ledger.jar /app
-CMD ["ledger.jar"]
+COPY ./src/main/resources/transactions.csv /app
+CMD ["java", "-jar", "ledger.jar"]
 
 
 

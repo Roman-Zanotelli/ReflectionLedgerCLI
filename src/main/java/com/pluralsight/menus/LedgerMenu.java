@@ -1,6 +1,7 @@
 package com.pluralsight.menus;
 
 import com.pluralsight.cli.annotations.*;
+import com.pluralsight.cli.annotations.display.ClearScreenBefore;
 import com.pluralsight.cli.annotations.display.WhiteSpaceBefore;
 import com.pluralsight.cli.annotations.display.menu.MenuHeader;
 import com.pluralsight.cli.annotations.display.option.MenuOption;
@@ -17,7 +18,8 @@ public final class LedgerMenu {
 
 
     //GET ALL OPTION
-    @RunLogic @WhiteSpaceBefore(2) @PrintResult
+    @RunLogic @ClearScreenBefore
+    @PrintResult
     @MenuOption(order = 0, key = "A", description = "Display All Entries")
     public static String getAll(){
         return Ledger.getAll();
@@ -25,7 +27,7 @@ public final class LedgerMenu {
 
 
     //GET DEPOSITS OPTION
-    @RunLogic @WhiteSpaceBefore(2) @PrintResult
+    @RunLogic @ClearScreenBefore @PrintResult
     @MenuOption(order = 1, key = "D", description = "Display All Deposits")
     public static String getDeposits(){
         return Ledger.getDeposits();
@@ -33,7 +35,7 @@ public final class LedgerMenu {
 
 
     //GET PAYMENTS OPTION
-    @RunLogic @WhiteSpaceBefore(2) @PrintResult
+    @RunLogic @ClearScreenBefore @PrintResult
     @MenuOption(order = 2, key = "P", description = "Display All Payments")
     public static String getPayments(){
         return Ledger.getPayments();
@@ -41,7 +43,7 @@ public final class LedgerMenu {
 
 
     //REPORTS MENU OPTION
-    @WhiteSpaceBefore(2) @NextMenu("reports_menu")
+    @ClearScreenBefore @NextMenu("reports_menu")
     @MenuOption(order = 3, key = "R", description = "Open Reports Menu")
     public void reports(){
         //DOES NOTHING
@@ -49,7 +51,7 @@ public final class LedgerMenu {
 
 
     //RETURN HOME OPTION
-    @WhiteSpaceBefore(2) @NextMenu("home_menu")
+    @ClearScreenBefore @NextMenu("home_menu")
     @MenuOption(order = 4, key = "H", description = "Return to Home Menu")
     public void home(){
         //DOES NOTHING

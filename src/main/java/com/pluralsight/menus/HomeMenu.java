@@ -1,6 +1,7 @@
 package com.pluralsight.menus;
 
 
+import com.pluralsight.cli.annotations.display.ClearScreenBefore;
 import com.pluralsight.cli.annotations.display.WhiteSpaceBefore;
 import com.pluralsight.cli.annotations.display.menu.MenuHeader;
 import com.pluralsight.cli.annotations.display.option.MenuOption;
@@ -20,7 +21,7 @@ public final class HomeMenu {
 
 
     //ADD DEPOSIT OPTION
-    @RunLogic @WhiteSpaceBefore(2) @PrintResult @WhiteSpaceAfter
+    @RunLogic @ClearScreenBefore @PrintResult
     @MenuOption(order = 0, key = "D", description = "ADD DEPOSIT")
     public static String addDeposit(@PromptValue(prompt = "Enter Deposit Amount: ", targetClass = Float.class, parserMethod = "parseFloat") Float amount, @PromptValue(prompt = "Enter a Description: ") String description, @PromptValue(prompt = "Please Enter a Vendor/Depositee: ") String vendor){
         //ADD DEPOSIT LOGIC HERE
@@ -29,7 +30,7 @@ public final class HomeMenu {
 
 
     //MAKE PAYMENT OPTION
-    @RunLogic @WhiteSpaceBefore(2) @PrintResult
+    @RunLogic @ClearScreenBefore @PrintResult
     @MenuOption(order = 1, key = "P", description = "Make Payment (Debit)")
     public static String makePayment(@PromptValue(prompt = "Enter Payment Amount: ", targetClass = Float.class, parserMethod = "parseFloat") Float amount, @PromptValue(prompt = "Enter Description: ") String description, @PromptValue(prompt = "Enter Vendor: ") String vendor){
         return Ledger.makePayment(amount, description, vendor);
@@ -37,7 +38,7 @@ public final class HomeMenu {
 
 
     //LEDGER MENU OPTION
-    @WhiteSpaceBefore(2) @NextMenu("ledger_menu")
+    @ClearScreenBefore @NextMenu("ledger_menu")
     @MenuOption(order = 2, key = "L", description = "Open Ledger")
     public static void ledger() {
         //DOES NOTHING
@@ -52,7 +53,7 @@ public final class HomeMenu {
     }
 
     //LOGOUT OPTION
-    @RunLogic @WhiteSpaceBefore(2) @PrintResult @NextMenu("start_menu")
+    @RunLogic @ClearScreenBefore @PrintResult @NextMenu("start_menu")
     // REMOVED OPTION @MenuOption(order = 4, key = "<<", description = "Log Out")
     public static String logout(){
         return Ledger.logout();
