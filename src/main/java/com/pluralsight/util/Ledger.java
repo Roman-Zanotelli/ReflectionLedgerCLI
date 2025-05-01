@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Ledger {
     static  String path = "";
     public static void setPath(){
-        path = Files.exists(Path.of("src/main/resources")) ? "src/main/resources/transactions.csv" : "transactions.csv";
+        path = Files.exists(Path.of("src/main/resources")) ? "src/main/resources/transactions.csv" : "./data/transactions.csv";
     }
 //USED BY HOME MENU
     public static String addDeposit(Float amount, String description, String vendor){

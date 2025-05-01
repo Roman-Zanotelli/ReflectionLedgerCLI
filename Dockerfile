@@ -7,7 +7,7 @@ RUN ./build.sh
 FROM amazoncorretto:17
 WORKDIR /app
 COPY --from=build-env /app/build/ledger.jar /app
-COPY ./src/main/resources/transactions.csv /app
+RUN mkdir -p /app/data
 CMD ["java", "-jar", "ledger.jar"]
 
 

@@ -1,0 +1,5 @@
+date|time|description|vendor|amount
+2025-05-01|21:02:46|Test|Roman|$1000.00
+2025-05-01|21:03:09|test|roman|$-1000.00
+2025-05-01|21:05:22|test|roman|$100.00
+2025-05-01|21:05:28|test|roman|$-100.00

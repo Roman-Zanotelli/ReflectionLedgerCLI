@@ -20,18 +20,20 @@ public class FileManager {
             }
             writer.append(String.format("%s\n", transaction));
             writer.close();
+
         } catch (IOException e) {
             return String.format("\033[31mI/O ERROR OCCURRED!\033[0m\nTransaction not written to file:\n%s\n", transaction);
         }
         return String.format("\033[1;32mSuccess!\nTransaction Written To File:\033[0m\n%s\n", transaction.toPrettyString());
     }
+
     public static ArrayList<Transaction> read(String path) {
         ArrayList<Transaction> list = new ArrayList<>();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(path));
+            File target = new File(path);
+            BufferedReader reader = new BufferedReader(new FileReader(target));
 
             String line = reader.readLine();
-            if(!line.equalsIgnoreCase("date|time|description|vendor|amount")) list.add(new Transaction(line));
             while ((line = reader.readLine()) != null) {
                 list.add(new Transaction(line));
             }
