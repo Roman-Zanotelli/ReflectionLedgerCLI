@@ -1,17 +1,33 @@
-2025-04-29|07:37:10|dfsfdsfsdf|fsdfsdfdsf|-$21312124.00
-2025-04-29|07:38:18|dsfsdfsfsdf|dfgfdgdfg|$432423239680.00
-2025-04-29|07:38:25|gfdgdfg|gfdgfgdf|-$432423.00
-2025-04-29|07:39:50|hfgdhgfhfhfdgfhhg|gdfgfdgfgdf|-$243543536828416.00
-2024-04-29|07:39:50|hfgdhgfhfhfdgfhhg|gdfgfdgfgdf|-$243543536828416.00
-2023-04-29|07:39:50|hfgdhgfhfhfdgfhhg|gdfgfdgfgdf|-$243543536828416.00
-2022-04-29|07:39:50|hfgdhgfhfhfdgfhhg|gdfgfdgfgdf|-$243543536828416.00
-2024-03-29|07:39:50|hfgdhgfhfhetetefdgfhhg|gdfgfdgfgdf|-$243543536828416.00
-2025-04-29|07:37:10|dfsfdsfsdf|fsdfsdfdsf|-$21312124.00
-2025-01-29|07:38:18|dsfsdfsfsdf|dfgfdgdfg|$432423239680.00
-2025-02-29|07:38:25|gfdgdfg|gfdgfgdf|-$432423.00
-2025-06-29|07:38:25|gfdgdfg|gfdgfgdf|-$432423.00
-2025-04-10|07:38:25|gfdgdfg|gfdgfgtetetedf|-$432423.00
-2025-04-29|08:00:44|test|roman|$1000.00
-2025-04-29|08:01:01|test2|roman|-$1000.00
-2025-04-29|08:51:55|sagdsagagd|sadgsgasd|$10000.00
-2025-04-29|10:31:26|fdsfsdf|fsdfsf|$43423424.00
+date|time|description|vendor|amount
+2025-05-01|10:17:34|test 1|roman|$1000.00
+2025-05-01|10:17:51|test 2|james|$1366.00
+2021-05-01|10:18:07|test 2 tyler|tyler|$-12131.00
+2025-05-01|10:18:26|amazon subscription|amazon|$-3232.00
+2025-05-01|10:17:34|test 1|roman|$1000.00
+2022-05-01|10:17:51|test 2|james|$2366.00
+2025-05-01|10:18:07|test 2 tyler|tyler|$123131.00
+2025-05-01|10:18:26|amazon subscription|amazon|$-3232.00
+2024-02-01|10:17:34|test 1|roman|$1000.00
+2025-05-01|10:17:51|test 2|james|$-1266.00
+2025-05-01|10:18:07|test 2 tyler|tyler|$123131.00
+2024-05-06|10:18:26|amazon subscription|amazon|$-3232.00
+2025-05-01|10:17:34|test 1|roman|$1000.00
+2025-03-01|10:17:51|test 2|james|$1266.00
+2023-05-01|10:18:07|test 2 tyler|tyler|$-12311.00
+2025-05-01|10:18:26|amazon subscription|amazon|$-3232.00
+2025-05-06|10:17:34|test 1|roman|$1000.00
+2025-05-01|10:17:51|test 2|james|$1366.00
+2021-05-01|10:18:07|test 2 tyler|tyler|$-12131.00
+2025-04-01|10:18:26|amazon subscription|amazon|$-3232.00
+2025-03-01|10:17:34|test 1|roman|$1000.00
+2022-05-01|10:17:51|test 2|james|$2366.00
+2025-05-01|10:18:07|test 2 tyler|tyler|$123131.00
+2025-05-01|10:18:26|amazon subscription|amazon|$-3232.00
+2024-05-01|10:17:34|test 1|roman|$1000.00
+2025-05-06|10:17:51|test 2|james|$-1266.00
+2025-04-01|10:18:07|test 2 tyler|tyler|$123131.00
+2024-04-01|10:18:26|amazon subscription|amazon|$-3232.00
+2025-04-01|10:17:34|test 1|roman|$1000.00
+2025-05-01|10:17:51|test 2|james|$1266.00
+2023-05-01|10:18:07|test 2 tyler|tyler|$-12311.00
+2025-05-01|10:18:26|amazon subscription|amazon|$-3232.00

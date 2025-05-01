@@ -8,5 +8,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface MenuSelector {
-    String value();
+    String value() default "\033[47;30mEnter Selection\033[0m> ";
 }

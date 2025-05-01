@@ -2,11 +2,12 @@ package com.pluralsight.menus;
 
 
 import com.pluralsight.cli.annotations.display.ClearScreenBefore;
+import com.pluralsight.cli.annotations.display.StringFormatter;
 import com.pluralsight.cli.annotations.display.WhiteSpaceBefore;
 import com.pluralsight.cli.annotations.display.menu.MenuHeader;
+import com.pluralsight.cli.annotations.display.menu.MenuSelector;
 import com.pluralsight.cli.annotations.display.option.MenuOption;
 import com.pluralsight.cli.annotations.display.option.PrintResult;
-import com.pluralsight.cli.annotations.display.WhiteSpaceAfter;
 import com.pluralsight.cli.annotations.*;
 import com.pluralsight.cli.annotations.prompt.PromptValue;
 import com.pluralsight.util.Ledger;
@@ -16,9 +17,11 @@ import com.pluralsight.util.Ledger;
 //HOME MENU
 //..................
 @Menu("home_menu")
-@MenuHeader("Home Menu") @WhiteSpaceBefore
+@MenuHeader("Home Menu") @WhiteSpaceBefore @StringFormatter("menu_formatter") @MenuSelector()
 public final class HomeMenu {
 
+    @StringFormatter("menu_formatter")
+    public static String header_formatter= "\033[4;47;30m%s\033[0m";
 
     //ADD DEPOSIT OPTION
     @RunLogic @ClearScreenBefore @PrintResult
@@ -46,7 +49,7 @@ public final class HomeMenu {
 
 
     //EXIT OPTION
-    @RunLogic
+    @ClearScreenBefore @RunLogic
     @MenuOption(order = 3, key = "X", description = "Exit System")
     public static void exit(){
         System.exit(0);

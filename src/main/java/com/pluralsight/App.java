@@ -28,7 +28,6 @@ public class App {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             //ADD ALL SHUTDOWN LOGIC HERE
             UserScanner.close();
-            FileManager.close();
             System.out.println("\u001B[32mB\u001B[33my\u001B[34me\u001B[35m! \u001B[31m<3\u001B[0m_\u001B[31m<3");
         }));
 
@@ -88,7 +87,7 @@ public class App {
 
                     //Result of method
                     Object res;
-
+                    
                     //Invoke directly if parameterless
                     if (params.length == 0) res = selection.invoke(null);
                     //Otherwise Prompt User for parameter values

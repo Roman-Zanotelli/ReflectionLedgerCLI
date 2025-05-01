@@ -2,8 +2,10 @@ package com.pluralsight.menus;
 
 import com.pluralsight.cli.annotations.*;
 import com.pluralsight.cli.annotations.display.ClearScreenBefore;
+import com.pluralsight.cli.annotations.display.StringFormatter;
 import com.pluralsight.cli.annotations.display.WhiteSpaceBefore;
 import com.pluralsight.cli.annotations.display.menu.MenuHeader;
+import com.pluralsight.cli.annotations.display.menu.MenuSelector;
 import com.pluralsight.cli.annotations.display.option.MenuOption;
 import com.pluralsight.cli.annotations.display.option.PrintResult;
 import com.pluralsight.cli.annotations.display.WhiteSpaceAfter;
@@ -13,8 +15,11 @@ import com.pluralsight.util.Ledger;
 //LEDGER MENU
 //...................
 @Menu("ledger_menu")
-@MenuHeader("Ledger Menu") @WhiteSpaceBefore
+@MenuHeader("Ledger Menu") @WhiteSpaceBefore @StringFormatter("menu_formatter") @MenuSelector
 public final class LedgerMenu {
+
+    @StringFormatter("menu_formatter")
+    public static String header_formatter= "\033[4;47;30m%s\033[0m";
 
 
     //GET ALL OPTION
@@ -51,7 +56,7 @@ public final class LedgerMenu {
 
 
     //RETURN HOME OPTION
-    @NextMenu("home_menu")
+    @ClearScreenBefore @NextMenu("home_menu")
     @MenuOption(order = 4, key = "H", description = "Return to Home Menu")
     public void home(){
         //DOES NOTHING

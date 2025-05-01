@@ -4,6 +4,7 @@ package com.pluralsight.menus;
 import com.pluralsight.cli.annotations.Menu;
 import com.pluralsight.cli.annotations.NextMenu;
 import com.pluralsight.cli.annotations.RunLogic;
+import com.pluralsight.cli.annotations.display.ClearScreenBefore;
 import com.pluralsight.cli.annotations.display.OnReturnNextMenu;
 import com.pluralsight.cli.annotations.display.WhiteSpaceBefore;
 import com.pluralsight.cli.annotations.display.menu.MenuHeader;
@@ -31,7 +32,7 @@ public final class StartMenu {
         return "";//Ledger.login(userName, pass, pin);
     }
 
-    @RunLogic
+    @ClearScreenBefore @RunLogic
     @MenuOption(order = 2, key = "X", description = "Exit")
     public static void exit(){
         System.exit(0);

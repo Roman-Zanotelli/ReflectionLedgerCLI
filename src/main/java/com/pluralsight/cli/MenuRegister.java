@@ -117,7 +117,6 @@ public class MenuRegister {
         //Exit early if needed
         if (menuAnnotation == null
                 || internalClassRegister.containsKey(menuAnnotation.value())
-                || internalModeRegister.containsKey(menuAnnotation.value())
         ) return false;
 
         //Add class to internal Class Register
