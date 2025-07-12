@@ -2,7 +2,9 @@
 
 **ReflectionLedgerCLI** is a lightweight, Java-based accounting ledger application that demonstrates advanced **reflection** and **annotation-driven command-line management**.
 
-This Project was created in 5-7 days with no prior knowledge/planning, The main object was to create a ledger CLI from a list of requirements (all of which were completed) but was eventually extended into a reflection CLI system for fun. This implementation while simple reflects how many industry standard libraries operate such as Spring (without a dependency graph)
+This Project was created in 5-7 days with no prior knowledge/planning, The main object was to create a ledger CLI from a list of requirements (all of which were completed) but was eventually extended into a reflection CLI system for fun.
+
+This implementation while simple reflects how many industry standard libraries operate such as Spring (without a dependency graph)
 
 ---
 
